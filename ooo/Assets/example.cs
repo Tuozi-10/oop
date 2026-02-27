@@ -3,7 +3,7 @@ using UnityEngine;
 
 
 
-public abstract class Entity : MonoBehaviour
+public abstract partial class Entity : MonoBehaviour
 {
     public int pv = 5;
 
