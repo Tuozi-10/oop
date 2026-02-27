@@ -1,4 +1,4 @@
-using UnityEngine;
+/*using UnityEngine;
 
 
 
@@ -43,7 +43,7 @@ public class Player : Entity
     }
 }
 
-public class Monster : Entity
+public class Monster : fEntity
 {
     protected override void Die()
     {
@@ -65,4 +65,4 @@ public class CacaManager
         player.Move(10,50);
         player.Move(new Vector2(10,50));
     }
-}
+}*/
