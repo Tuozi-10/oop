@@ -14,6 +14,8 @@ public class Home : MonoBehaviour
     public int sword;
     public int woodPrice = 8;
     public int stonePrice = 8;
+    public int woodAvailable;
+    public int stoneAvailable;
     private void Awake()
     {
         if (instance == null) { instance = this; }
@@ -27,27 +29,56 @@ public class Home : MonoBehaviour
 
     public void AddWood()
     {
-        wood += 1;
+        wood += 8;
+        woodAvailable += 8;
         ReloadText();
     }
     
     public void AddStone()
     {
-        stone += 1;
-        ReloadText();
-    }
-    
-    public void CraftSword()
-    {
-        wood -= woodPrice;
-        stone -= stonePrice;
-        sword += 1;
+        stone += 8;
+        stoneAvailable += 8;
         ReloadText();
     }
 
-    public bool CanCraft()
+    public void ReserveRessources()
     {
-        return wood >= woodPrice && stone <= stonePrice;
+        woodAvailable -= woodPrice;
+        stoneAvailable -= stonePrice;
+    }
+
+    public void TakeWood(Crafter crafter)
+    {
+        crafter.wood += woodPrice;
+        wood -= woodPrice;
+        ReloadText();
+    }
+    
+    public void TakeStone(Crafter crafter)
+    {
+        crafter.stone += stonePrice;
+        stone -= stonePrice;
+        ReloadText();
+    }
+
+    public void PoseSword(Crafter crafter)
+    {
+        crafter.sword -= 1;
+        sword += 1;
+        ReloadText();
+    }
+    
+    public void CraftSword(Crafter crafter)
+    {
+        crafter.wood -= woodPrice;
+        crafter.stone -= stonePrice;
+        crafter.sword += 1;
+        ReloadText();
+    }
+
+    public bool HasEnoughRessources()
+    {
+        return woodAvailable >= woodPrice && stoneAvailable <= stonePrice;
     }
 
     public void ReloadText()

@@ -2,19 +2,47 @@ using UnityEngine;
 
 public class Crafter : Npc
 {
+    public int wood;
+    public int stone;
+    public int sword;
+    public bool hasReservedRessources;
     
     protected override Vector2 GetTargetPosition()
     {
-        if (Vector3.Distance(transform.position, workStation.transform.position) < 1)
+        if (Vector3.Distance(transform.position, home.transform.position) < 1)
         {
-            Home.instance.CraftSword();
+            if (sword != 0)
+            {
+                Home.instance.PoseSword(this);
+            }
+
+            if (hasReservedRessources)
+            {
+                Home.instance.TakeWood(this);
+                Home.instance.TakeStone(this);
+                hasReservedRessources = false;
+            }
+        }
+        if (Vector3.Distance(transform.position, workStation.transform.position) < 1 && HasEnoughRessources())
+        {
+            Home.instance.CraftSword(this);
             return home.transform.position;
         }
-        if (Home.instance.CanCraft())
+        if (HasEnoughRessources())
         {
-            
             return workStation.transform.position;
         }
-        return new Vector2(Random.Range(-5f,5f),Random.Range(-2.5f,2.5f));
+        if (Home.instance.HasEnoughRessources())
+        {
+            Home.instance.ReserveRessources();
+            hasReservedRessources = true;
+            return home.transform.position;
+        }
+        return new Vector2(Random.Range(-5f, 5f),Random.Range(-2.5f, 2.5f));
+    }
+
+    private bool HasEnoughRessources()
+    {
+        return wood >= Home.instance.woodPrice && stone >= Home.instance.stonePrice;
     }
 }
