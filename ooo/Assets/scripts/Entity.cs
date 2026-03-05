@@ -2,14 +2,20 @@ using UnityEngine;
 
 public abstract class Entity : MonoBehaviour
 {
+    [SerializeField] protected GameObject workStation;
     public float speed;
     private Vector2 targetPosition;
     private Vector2 direction;
     private Rigidbody2D rb;
+    public int wood;
+    public int stone;
+    public int sword;
     protected abstract Vector2 GetTargetPosition();
-
+    protected GameObject home;
+    
     private void Start()
     {
+        home = Home.instance.gameObject;
         rb = gameObject.GetComponent<Rigidbody2D>();
         targetPosition = GetTargetPosition();
     }

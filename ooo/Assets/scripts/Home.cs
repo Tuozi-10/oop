@@ -1,4 +1,3 @@
-using System;
 using TMPro;
 using UnityEngine;
 
@@ -27,17 +26,17 @@ public class Home : MonoBehaviour
         ReloadText();
     }
 
-    public void AddWood()
+    public void PoseWood(int ressources)
     {
-        wood += 8;
-        woodAvailable += 8;
+        wood += ressources;
+        woodAvailable += ressources;
         ReloadText();
     }
     
-    public void AddStone()
+    public void PoseStone(int ressources)
     {
-        stone += 8;
-        stoneAvailable += 8;
+        stone += ressources;
+        stoneAvailable += ressources;
         ReloadText();
     }
 
@@ -61,9 +60,8 @@ public class Home : MonoBehaviour
         ReloadText();
     }
 
-    public void PoseSword(Crafter crafter)
+    public void PoseSword()
     {
-        crafter.sword -= 1;
         sword += 1;
         ReloadText();
     }
@@ -78,7 +76,7 @@ public class Home : MonoBehaviour
 
     public bool HasEnoughRessources()
     {
-        return woodAvailable >= woodPrice && stoneAvailable <= stonePrice;
+        return woodAvailable >= woodPrice && stoneAvailable >= stonePrice;
     }
 
     public void ReloadText()

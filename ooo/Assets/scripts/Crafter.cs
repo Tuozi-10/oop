@@ -2,9 +2,6 @@ using UnityEngine;
 
 public class Crafter : Npc
 {
-    public int wood;
-    public int stone;
-    public int sword;
     public bool hasReservedRessources;
     
     protected override Vector2 GetTargetPosition()
@@ -13,7 +10,8 @@ public class Crafter : Npc
         {
             if (sword != 0)
             {
-                Home.instance.PoseSword(this);
+                Home.instance.PoseSword();
+                sword -= 1;
             }
 
             if (hasReservedRessources)
