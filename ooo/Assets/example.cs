@@ -1,7 +1,5 @@
 using UnityEngine;
-
-
-
+/*
 
 public abstract class Entity : MonoBehaviour
 {
@@ -66,3 +64,5 @@ public class CacaManager
         player.Move(new Vector2(10,50));
     }
 }
+
+*/
