@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Harvester : Npc
@@ -5,6 +6,7 @@ public class Harvester : Npc
     [SerializeField] private Collectable[] collectable;
     private Collectable currentCollectable;
     private int ressourcesCapacity = 2;
+
 
     protected override Vector2 GetTargetPosition()
     {

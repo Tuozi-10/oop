@@ -2,7 +2,7 @@ using UnityEngine;
 
 public abstract class Entity : MonoBehaviour
 {
-    [SerializeField] protected GameObject workStation;
+    [SerializeField] public GameObject workStation;
     public float speed;
     private Vector2 targetPosition;
     private Vector2 direction;
