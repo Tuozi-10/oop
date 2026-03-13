@@ -4,30 +4,57 @@ using Random = UnityEngine.Random;
 
 public class NPC : Entity
 {
-    [SerializeField] private stock stock;
+    
+    [SerializeField] private GameObject forge;
+    
     [SerializeField] private int boisCraft;
     [SerializeField] private int pierreCraft;
-    [SerializeField] private GameObject forge;
+    [SerializeField] private bool inventoryFull;
+    [SerializeField] private bool hasSword;
     
     private void Update()
     {
-        if (stock.pierre >= pierreCraft && stock.bois >= boisCraft)
+        
+        if (stock.bois >= boisCraft && stock.pierre >= stock.pierre && !inventoryFull)
         {
-            targetPosition = forge.transform.position;
-            
-            
-            
+            Walk(stock.transform.position);
+        }
+        else
+        {
+            Walk();
         }
         
-        else 
+        if (CheckDistance(stock.transform.position)) 
         {
-            if (Vector3.Distance(transform.position, targetPosition) < 0.1)
+            if (!hasSword && stock.bois >= boisCraft && stock.pierre >= pierreCraft)
             {
-                Vector3 randomPosition = new Vector3(Random.Range(-10f, 10f), Random.Range(-5.5f, 5.5f), 0);
-                targetPosition = randomPosition;
+                inventoryFull = true;
+                stock.bois -= boisCraft;
+                stock.pierre -= pierreCraft;
+                Walk(forge.transform.position);
+            }
+            else if(hasSword)
+            {
+                stock.sword++;
+                hasSword = false;
             }
 
-            
         }
+
+        if (CheckDistance(forge.transform.position))
+        {
+            if (inventoryFull)
+            {
+                inventoryFull = false;
+                hasSword = true;
+                Walk(stock.transform.position);
+            }
+        }
+        
     }
+
+
+    
+    
+    
 }

@@ -1,72 +1,73 @@
-using System;
-using Unity.VisualScripting;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Harvester : Entity
 {
-
-    [SerializeField] private GameObject maison;
-    [SerializeField] private GameObject arbre;
-    [SerializeField] private GameObject pierre;
+    public static List<Recoltable> recoltableList = new List<Recoltable>();
+    
     [SerializeField] private bool inventoryFull;
-    [SerializeField] private Type type;
-    
-    [SerializeField] private stock stock;
+    [SerializeField] private Recoltable.RecoltableType HarvesterType;
 
-    private enum Type
-    {
-        bois,
-        pierre
-    }
-    
+    private Recoltable selectedRecoltable;
+
     private void Update()
     {
         if (inventoryFull)
         {
-            targetPosition = maison.gameObject.transform.position;
+            Walk(stock.transform.position);
         }
 
         if (!inventoryFull)
         {
-            if (type == Type.bois)
-            {
-                targetPosition = arbre.gameObject.transform.position;
-            }
-
-            if (type == Type.pierre)
-            {
-                targetPosition = pierre.gameObject.transform.position;
-            }
-            
-            
+                Walk(FoundNearest());
         }
 
         
         //deposer
-        if (Vector3.Distance(maison.gameObject.transform.position, transform.position) < 0.1)
+        if (CheckDistance(stock.transform.position) && inventoryFull)
         {
             inventoryFull = false;
-            if (type == Type.bois)
+            if (HarvesterType == Recoltable.RecoltableType.bois)
             {
                 stock.bois++;
             }
 
-            if (type == Type.pierre)
+            if (HarvesterType == Recoltable.RecoltableType.pierre)
             {
                 stock.pierre++;
             }
+            
         }
+        
         //récolter
-        if (Vector3.Distance(arbre.gameObject.transform.position, transform.position) < 0.1)
+        if (CheckDistance(selectedRecoltable.transform.position))
         {
             inventoryFull = true;
+            selectedRecoltable.DisableRecoltable();
         }
-        if (Vector3.Distance(pierre.gameObject.transform.position, transform.position) < 0.1)
-        {
-            inventoryFull = true;
-        }
+
     }
-    
-    
-    
+
+    private Vector3 FoundNearest()
+    {
+        Recoltable nearestRecoltable = null;
+        foreach (var recoltable in recoltableList)
+        {
+            if (recoltable.recoltableType == HarvesterType && recoltable.isEnabled && !recoltable.isChosen)
+            {
+                if (nearestRecoltable == null)
+                {
+                    nearestRecoltable = recoltable;
+                }
+                
+                if (Vector3.Distance(transform.position, recoltable.transform.position) < Vector3.Distance(transform.position, nearestRecoltable.transform.position))
+                {
+                    nearestRecoltable = recoltable;
+                }
+            }
+        }
+
+        selectedRecoltable = nearestRecoltable;
+        return nearestRecoltable.transform.position;
+    }
 }

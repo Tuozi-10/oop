@@ -5,6 +5,5 @@ public class stock : MonoBehaviour
 {
     [SerializeField] public int bois;
     [SerializeField] public int pierre;
-
-
+    [SerializeField] public int sword;
 }
