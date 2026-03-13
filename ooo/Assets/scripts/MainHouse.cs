@@ -8,6 +8,7 @@ public class MainHouse : MonoBehaviour
     public static MainHouse Instance;
     public float mainWoodStorage;
     public float mainRockStorage;
+    
     private void Awake()
     {
         if (Instance != null)

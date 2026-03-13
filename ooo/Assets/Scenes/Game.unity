@@ -148,7 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f24caff5b5684c845b7152991ed7fb6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HarvestManager
-  moveSpeed: 0.3
+  moveSpeed: 0.1
   idleRange: {x: 9, y: 6}
   detectionRadius: 1
   maxCarry: 3

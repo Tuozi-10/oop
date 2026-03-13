@@ -10,7 +10,6 @@ public class Harvestable : MonoBehaviour
     private int onHarvestValue;
     public bool activated = true;
 
-
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -34,7 +33,7 @@ public class Harvestable : MonoBehaviour
         activated = false;
         spriteRenderer.color = Color.grey;
         
-        yield return HarvestManager.Instance.cooldownTime;
+        yield return new WaitForSeconds(HarvestManager.Instance.cooldownTime);
         ReActivate();
     }
 
