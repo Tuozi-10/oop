@@ -12,5 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 884cc0ffc89640c4184e1a3876bd8228, type: 3}
   m_Name: GameParameters
   m_EditorClassIdentifier: 
+  numberOfCrafters: 5
+  numberOfHarvesters: 10
+  numberOfMiners: 10
+  numberOfTrees: 40
+  numberOfStones: 40
   woodPrice: 8
   stonePrice: 8

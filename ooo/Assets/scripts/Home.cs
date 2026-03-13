@@ -5,9 +5,6 @@ public class Home : MonoBehaviour
 {
     public static Home instance;   
     
-    [Header("Parameters")]
-    [SerializeField] private GameParameters gameParameters;
-    
     [Header("Text Reference")]
     [SerializeField] private TMP_Text woodText;
     [SerializeField] private TMP_Text stoneText;
@@ -49,21 +46,21 @@ public class Home : MonoBehaviour
 
     public void ReserveRessources()
     {
-        woodAvailable -= gameParameters.woodPrice;
-        stoneAvailable -= gameParameters.stonePrice;
+        woodAvailable -= GameManager.instance.gameParameters.woodPrice;
+        stoneAvailable -= GameManager.instance.gameParameters.stonePrice;
     }
 
     public void TakeWood(Crafter crafter)
     {
-        crafter.wood += gameParameters.woodPrice;
-        wood -= gameParameters.woodPrice;
+        crafter.wood += GameManager.instance.gameParameters.woodPrice;
+        wood -= GameManager.instance.gameParameters.woodPrice;
         ReloadText();
     }
     
     public void TakeStone(Crafter crafter)
     {
-        crafter.stone += gameParameters.stonePrice;
-        stone -= gameParameters.stonePrice;
+        crafter.stone += GameManager.instance.gameParameters.stonePrice;
+        stone -= GameManager.instance.gameParameters.stonePrice;
         ReloadText();
     }
 
@@ -73,20 +70,12 @@ public class Home : MonoBehaviour
         ReloadText();
     }
     
-    public void CraftSword(Crafter crafter)
-    {
-        crafter.wood -= gameParameters.woodPrice;
-        crafter.stone -= gameParameters.stonePrice;
-        crafter.sword += 1;
-        ReloadText();
-    }
-
     public bool HasEnoughRessources()
     {
-        return woodAvailable >= gameParameters.woodPrice && stoneAvailable >= gameParameters.stonePrice;
+        return woodAvailable >= GameManager.instance.gameParameters.woodPrice && stoneAvailable >= GameManager.instance.gameParameters.stonePrice;
     }
 
-    private void ReloadText()
+    public void ReloadText()
     {
         woodText.text = wood.ToString();
         stoneText.text = stone.ToString();

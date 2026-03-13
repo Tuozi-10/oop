@@ -11,25 +11,13 @@ public class Harvester : Entity
 
     protected override Vector2 GetTargetPosition()
     {
-        if (Distance(transform, home) < 1f)
-        {
-            return NearHouse();
-        }
+        if (Distance(transform, home) < 1f) { return NearHouse(); }
         
-        if (wood + stone >= harvesterParameters.ressourcesCapacity)
-        {
-            return home.transform.position;
-        }
+        if (wood + stone >= harvesterParameters.ressourcesCapacity) { return home.transform.position; }
         
-        if (Distance(transform.position, workStation) < 1f)
-        {
-            return FindRessourcesAvailable();
-        }
+        if (Distance(transform.position, workStation) < 1f) { return FindRessourcesAvailable(); }
         
-        if (currentCollectable != null && Distance(transform.position, currentCollectable.gameObject) < 1f)
-        {
-            return NearRessources();
-        }
+        if (currentCollectable != null && Distance(transform.position, currentCollectable.gameObject) < 1f) { return NearRessources(); }
         
         return home.transform.position;
     }

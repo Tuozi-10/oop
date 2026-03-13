@@ -3,7 +3,7 @@ using UnityEngine;
 public abstract class Entity : MonoBehaviour
 {
     [SerializeField] protected EntityParameters entityParameters;
-    [SerializeField] protected GameObject workStation;
+    public GameObject workStation;
     
     [Header("Ressources")]
     public int wood;
@@ -20,6 +20,7 @@ public abstract class Entity : MonoBehaviour
     {
         home = Home.instance.gameObject;
         targetPosition = GetTargetPosition();
+        OnStart();
     }
 
     private void Move()
@@ -38,4 +39,6 @@ public abstract class Entity : MonoBehaviour
     {
         Move();
     }
+
+    protected virtual void OnStart() {}
 }
