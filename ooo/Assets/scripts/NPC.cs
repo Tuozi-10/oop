@@ -1,17 +1,27 @@
+using System;
+using System.Data;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
+using Random = UnityEngine.Random;
 
 public class NPC : Entity
 {
-    private float wanderLimit = 8f;
-    private Vector2 targetPosition;
-    
-    private void Move(Vector2 randomMovement)
+    private Vector2 RandomWalk()
     {
-        randomMovement = new Vector2(Random.Range(1, 9), Random.Range(1, 9)); 
-        transform.position = randomMovement * Entity.speed;
+        Vector2 walkPos = new Vector2();
+        walkPos.x = Random.Range(-10, 10);
+        walkPos.y = Random.Range(-10, 10);
+        return walkPos;
     }
-    
-    
-    
+
+    private void FixedUpdate()
+    {
+        if (Distanced(target))
+        {
+            WalkTo(target);
+        }
+        else
+        {
+            target = RandomWalk();
+        }
+    }
 }
