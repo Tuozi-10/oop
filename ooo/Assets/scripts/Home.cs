@@ -3,18 +3,25 @@ using UnityEngine;
 
 public class Home : MonoBehaviour
 {
+    public static Home instance;   
+    
+    [Header("Parameters")]
+    [SerializeField] private GameParameters gameParameters;
+    
+    [Header("Text Reference")]
     [SerializeField] private TMP_Text woodText;
     [SerializeField] private TMP_Text stoneText;
     [SerializeField] private TMP_Text swordText;
 
-    public static Home instance;
+    [Header("Ressources")]
     public int wood;
     public int stone;
     public int sword;
-    public int woodPrice = 8;
-    public int stonePrice = 8;
+    
+    [Header("Ressources Available")]
     public int woodAvailable;
     public int stoneAvailable;
+    
     private void Awake()
     {
         if (instance == null) { instance = this; }
@@ -42,21 +49,21 @@ public class Home : MonoBehaviour
 
     public void ReserveRessources()
     {
-        woodAvailable -= woodPrice;
-        stoneAvailable -= stonePrice;
+        woodAvailable -= gameParameters.woodPrice;
+        stoneAvailable -= gameParameters.stonePrice;
     }
 
     public void TakeWood(Crafter crafter)
     {
-        crafter.wood += woodPrice;
-        wood -= woodPrice;
+        crafter.wood += gameParameters.woodPrice;
+        wood -= gameParameters.woodPrice;
         ReloadText();
     }
     
     public void TakeStone(Crafter crafter)
     {
-        crafter.stone += stonePrice;
-        stone -= stonePrice;
+        crafter.stone += gameParameters.stonePrice;
+        stone -= gameParameters.stonePrice;
         ReloadText();
     }
 
@@ -68,18 +75,18 @@ public class Home : MonoBehaviour
     
     public void CraftSword(Crafter crafter)
     {
-        crafter.wood -= woodPrice;
-        crafter.stone -= stonePrice;
+        crafter.wood -= gameParameters.woodPrice;
+        crafter.stone -= gameParameters.stonePrice;
         crafter.sword += 1;
         ReloadText();
     }
 
     public bool HasEnoughRessources()
     {
-        return woodAvailable >= woodPrice && stoneAvailable >= stonePrice;
+        return woodAvailable >= gameParameters.woodPrice && stoneAvailable >= gameParameters.stonePrice;
     }
 
-    public void ReloadText()
+    private void ReloadText()
     {
         woodText.text = wood.ToString();
         stoneText.text = stone.ToString();

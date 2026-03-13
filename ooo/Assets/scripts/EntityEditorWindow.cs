@@ -3,7 +3,7 @@ using UnityEditor;
 
 public class EntityEditorWindow : EditorWindow
 {
-    public EntityData dataCible;
+    public EntityParameters dataCible;
 
     [MenuItem("Tools/PlayerModifier")]
     public static void ShowWindow()
@@ -16,17 +16,17 @@ public class EntityEditorWindow : EditorWindow
         GUILayout.Label("Entity modifier", EditorStyles.boldLabel);
         EditorGUILayout.Space();
 
-        dataCible = (EntityData)EditorGUILayout.ObjectField("Entity to modify", dataCible, typeof(EntityData), false);
+        dataCible = (EntityParameters)EditorGUILayout.ObjectField("Entity to modify", dataCible, typeof(EntityParameters), false);
 
         if (dataCible != null)
         {
             EditorGUILayout.BeginVertical("box");
             
-            dataCible.speed = EditorGUILayout.IntField("Speed", dataCible.speed);
+            dataCible.speed = EditorGUILayout.FloatField("Speed", dataCible.speed);
 
             EditorGUILayout.BeginHorizontal();
-            if (GUILayout.Button("-10")) dataCible.speed -= 10;
-            if (GUILayout.Button("+10")) dataCible.speed += 10;
+            if (GUILayout.Button("-0.01")) dataCible.speed -= 0.01f;
+            if (GUILayout.Button("+0.01")) dataCible.speed += 0.01f;
             EditorGUILayout.EndHorizontal();
 
             EditorGUILayout.EndVertical();
@@ -50,12 +50,12 @@ public class EntityEditorWindow : EditorWindow
     
     private void Prefill()
     {
-        string[] guids = AssetDatabase.FindAssets("t:EntityData");
+        string[] guids = AssetDatabase.FindAssets("t:EntityParameters");
 
         if (guids.Length > 0)
         {
             string path = AssetDatabase.GUIDToAssetPath(guids[0]);
-            dataCible = AssetDatabase.LoadAssetAtPath<EntityData>(path);
+            dataCible = AssetDatabase.LoadAssetAtPath<EntityParameters>(path);
         }
     }
 }

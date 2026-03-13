@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3138562009697304346
+--- !u!1 &1159681000522528291
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,9 +8,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3526079760290753664}
-  - component: {fileID: 8163234435693424811}
-  - component: {fileID: 4336457393247993135}
+  - component: {fileID: 2342925532437111134}
+  - component: {fileID: 1175077965441847339}
+  - component: {fileID: 3801255957108506736}
   m_Layer: 0
   m_Name: unroche
   m_TagString: Untagged
@@ -18,13 +18,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3526079760290753664
+--- !u!4 &2342925532437111134
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3138562009697304346}
+  m_GameObject: {fileID: 1159681000522528291}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 6.89, y: -3.33, z: 0.044801895}
@@ -33,13 +33,13 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &8163234435693424811
+--- !u!212 &1175077965441847339
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3138562009697304346}
+  m_GameObject: {fileID: 1159681000522528291}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -88,13 +88,13 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4336457393247993135
+--- !u!114 &3801255957108506736
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3138562009697304346}
+  m_GameObject: {fileID: 1159681000522528291}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f2f5694842b125b4c8fd806a06e6ecd0, type: 3}
@@ -102,5 +102,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeDisable: 4
   type: 2
-  isAvailable: 1
   isAssigned: 0

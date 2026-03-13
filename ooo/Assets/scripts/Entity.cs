@@ -2,21 +2,23 @@ using UnityEngine;
 
 public abstract class Entity : MonoBehaviour
 {
+    [SerializeField] protected EntityParameters entityParameters;
     [SerializeField] protected GameObject workStation;
-    public float speed;
-    private Vector2 targetPosition;
-    private Vector2 direction;
-    private Rigidbody2D rb;
+    
+    [Header("Ressources")]
     public int wood;
     public int stone;
     public int sword;
-    protected abstract Vector2 GetTargetPosition();
+    
+    private Vector2 targetPosition;
+    private Vector2 direction;
     protected GameObject home;
+    
+    protected abstract Vector2 GetTargetPosition();
     
     private void Start()
     {
         home = Home.instance.gameObject;
-        rb = gameObject.GetComponent<Rigidbody2D>();
         targetPosition = GetTargetPosition();
     }
 
@@ -28,8 +30,8 @@ public abstract class Entity : MonoBehaviour
         }
         direction =  targetPosition - new Vector2(transform.position.x,transform.position.y);
         direction.Normalize();
-        direction *= speed;
-        transform.Translate(direction);
+        direction *= entityParameters.speed;
+        transform.Translate(direction); 
     }
 
     private void FixedUpdate()

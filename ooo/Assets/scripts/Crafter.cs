@@ -1,7 +1,9 @@
 using UnityEngine;
 
-public class Crafter : Npc
+public class Crafter : Entity
 {
+    [Header("Crafter Parameters")]
+    [SerializeField] private GameParameters gameParameters;
     public bool hasReservedRessources;
     
     protected override Vector2 GetTargetPosition()
@@ -41,6 +43,6 @@ public class Crafter : Npc
 
     private bool HasEnoughRessources()
     {
-        return wood >= Home.instance.woodPrice && stone >= Home.instance.stonePrice;
+        return wood >= gameParameters.woodPrice && stone >= gameParameters.stonePrice;
     }
 }

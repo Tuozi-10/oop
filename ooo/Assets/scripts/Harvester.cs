@@ -1,56 +1,84 @@
+using System.Collections.Generic;
 using UnityEngine;
 
-public class Harvester : Npc
+public class Harvester : Entity
 {
-    [SerializeField] private Collectable[] collectable;
-    private Collectable currentCollectable;
-    private int ressourcesCapacity = 2;
+    [Header("Harvester Parameters")]
+    [SerializeField] private HarvesterParameters harvesterParameters;
+    public static List<Collectable> collectable = new ();
+    public Collectable.ressourcesType typeOfRessources;
+    public Collectable currentCollectable;
 
     protected override Vector2 GetTargetPosition()
     {
-
-        if (Vector2.Distance(transform.position, home.transform.position) < 1f)
+        if (Distance(transform, home) < 1f)
         {
-            Home.instance.PoseWood(wood);
-            wood = 0;
-            Home.instance.PoseStone(stone);
-            stone = 0;
-            return workStation.transform.position;
+            return NearHouse();
         }
         
-        if (wood + stone >= ressourcesCapacity)
+        if (wood + stone >= harvesterParameters.ressourcesCapacity)
         {
             return home.transform.position;
         }
         
-        if (Vector2.Distance(transform.position, workStation.transform.position) < 1f)
+        if (Distance(transform.position, workStation) < 1f)
         {
-            for (int i = 0; i < collectable.Length; i++)
-            {
-                if (!collectable[i].isAssigned)
-                {
-                    currentCollectable = collectable[i];
-                    currentCollectable.isAssigned = true;
-                    return currentCollectable.gameObject.transform.position;
-                }
-            }
+            return FindRessourcesAvailable();
         }
         
-        if (currentCollectable != null && Vector2.Distance(transform.position, currentCollectable.gameObject.transform.position) < 1f)
+        if (currentCollectable != null && Distance(transform.position, currentCollectable.gameObject) < 1f)
         {
-            Collectable.ressourcesType collectType = currentCollectable.Collect();
-            if (collectType == Collectable.ressourcesType.wood)
-            {
-                wood += 1;
-            }
-            else if (collectType == Collectable.ressourcesType.stone)
-            {
-                stone += 1;
-            }
-
-            return workStation.transform.position;
+            return NearRessources();
         }
         
         return home.transform.position;
+    }
+
+    private Vector3 NearHouse()
+    {
+        Home.instance.PoseWood(wood);
+        wood = 0;
+        Home.instance.PoseStone(stone);
+        stone = 0;
+        return workStation.transform.position;
+    }
+
+    private Vector3 FindRessourcesAvailable()
+    {
+        for (int i = 0; i < collectable.Count; i++)
+        {
+            if (!collectable[i].isAssigned && collectable[i].type == typeOfRessources)
+            {
+                currentCollectable = collectable[i];
+                currentCollectable.isAssigned = true;
+                return currentCollectable.gameObject.transform.position;
+            }
+        }
+        return home.transform.position;
+    }
+
+    private Vector3 NearRessources()
+    {
+        Collectable.ressourcesType collectType = currentCollectable.Collect();
+        if (collectType == Collectable.ressourcesType.wood)
+        {
+            wood += 1;
+        }
+        else if (collectType == Collectable.ressourcesType.stone)
+        {
+            stone += 1;
+        }
+
+        return workStation.transform.position;
+    }
+
+    private float Distance(Transform elementTransform, GameObject otherElement)
+    {
+        return Vector2.Distance(elementTransform.position, otherElement.transform.position);
+    }
+    
+    private float Distance(Vector3 position, GameObject element)
+    {
+        return Vector2.Distance(position, element.transform.position);
     }
 }
