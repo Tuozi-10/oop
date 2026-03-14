@@ -3,7 +3,7 @@ using UnityEngine;
 
 
 
-public abstract class Entity : MonoBehaviour
+public abstract class EntityExample : MonoBehaviour
 {
     public int pv = 5;
 
@@ -29,7 +29,7 @@ public abstract class Entity : MonoBehaviour
     }
 }
 
-public class Player : Entity
+public class Player : EntityExample
 {
     protected override void Die()
     {
@@ -43,7 +43,7 @@ public class Player : Entity
     }
 }
 
-public class Monster : Entity
+public class Monster : EntityExample
 {
     protected override void Die()
     {
