@@ -10,7 +10,7 @@ public class Harvestable : MonoBehaviour
     private int onHarvestValue;
     public bool activated = true;
 
-    private void Start()
+    private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         switch (harvestableType)

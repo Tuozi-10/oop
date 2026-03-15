@@ -12,6 +12,8 @@ public class Entity : MonoBehaviour
     protected GameObject targetGameObject;
     protected Vector3 targetPos = new Vector3();
 
+    private Vector3 _lastFramePos;
+
     private void FixedUpdate()
     {
         if (Vector2.Distance(transform.position,
@@ -27,9 +29,15 @@ public class Entity : MonoBehaviour
             }
         }
         
-        MoveTowardsTarget();    
+        MoveTowardsTarget();
+        Flip();
     }
-    
+
+    private void LateUpdate()
+    {
+        _lastFramePos = transform.position;
+    }
+
     protected virtual void Interact(GameObject gameObject)
     {
         throw new NotImplementedException();
@@ -47,5 +55,17 @@ public class Entity : MonoBehaviour
     {
         var direction =  (targetPos - transform.position).normalized;
         transform.position += direction * _moveSpeed;
+    }
+
+    private void Flip()
+    {
+        if (_lastFramePos.x - transform.position.x < 0)
+        {
+            transform.rotation = Quaternion.Euler(Vector3.zero);
+        }
+        else
+        {
+            transform.rotation = Quaternion.Euler(0, 180, 0);
+        }
     }
 }

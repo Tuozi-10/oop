@@ -25,15 +25,20 @@ public class Harvester : Entity
     {
         if (otherGameObject.CompareTag("Harvestable"))
         {
-            print("arbre touché");
-            StartCoroutine(otherGameObject.GetComponent<Harvestable>().DesActivate());
-            SetTarget((int)harvesterType);
+            var targetHarv = otherGameObject.GetComponent<Harvestable>();
+            if (!targetHarv.activated)
+            {
+                SetTarget((int)harvesterType);
+                return;
+            }
+            StartCoroutine(targetHarv.DesActivate());
+            SetTarget(2);
             _amountCarried += _onHarvestValue;
         }
         else if (otherGameObject.CompareTag("MainHouse"))
         {
             otherGameObject.GetComponent<MainHouse>().AddToStorage(harvesterType, _amountCarried);
-            SetTarget(2);
+            SetTarget((int)harvesterType);
             _amountCarried = 0;
         }
     }
@@ -62,15 +67,16 @@ public class Harvester : Entity
             default:
                 break;
         }
-        targetPos = targetGameObject.transform.position;
+            targetPos = targetGameObject.transform.position;
     }
 
     private GameObject GiveHarvFromList(List<GameObject> harvList)
     {
-        for (int i = 0; i < harvList.Count;)
+        for (int i = 0; i < 20; i++)
         {
-            if (!harvList[i].GetComponent<Harvestable>().activated) continue;
-            return harvList[i];
+            var harvObj = harvList[Random.Range(0, harvList.Count - 1)];
+            if (!harvObj.GetComponent<Harvestable>().activated) continue;
+            return harvObj;
         }
 
         return null;

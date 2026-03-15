@@ -6,8 +6,9 @@ using static HarvestManager.Type;
 public class MainHouse : MonoBehaviour
 {
     public static MainHouse Instance;
-    public float mainWoodStorage;
-    public float mainRockStorage;
+    public int mainWoodStorage;
+    public int mainRockStorage;
+    public int mainSwordStorage;
     
     private void Awake()
     {

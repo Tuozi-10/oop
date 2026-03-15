@@ -5,8 +5,8 @@ TagManager:
   serializedVersion: 3
   tags:
   - Harvester
-  - Harvestable
   - MainHouse
+  - Harvestable
   layers:
   - Default
   - TransparentFX
