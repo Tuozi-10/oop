@@ -9,15 +9,18 @@ public class NPC : Entity
     
     private void Start()
     {
+        _moveSpeed = HarvestManager.Instance.moveSpeed / 4;
+        _detectionRadius = HarvestManager.Instance.detectionRadius;
+        _maxIdleRange = new Vector2(-3f, 0.5f);
+        _minIdleRange = new Vector2(-10f, -3f);
         SetRandomTargetPos();
     }
 
     private void Update()
     {
-        if (MainHouse.Instance.mainRockStorage < 50 
-            && MainHouse.Instance.mainWoodStorage < 30 
-            && hasGameObjectAsTarget) return;
-        
+        if (MainHouse.Instance.mainRockStorage <= 50
+            || MainHouse.Instance.mainWoodStorage <= 30
+            || _carrySwordMaterials) return;
         SetTarget(MainHouse.Instance.gameObject);
     }
 
@@ -31,8 +34,8 @@ public class NPC : Entity
         }
         else if (otherGameObject.CompareTag("MainHouse"))
         {
-            MainHouse.Instance.mainWoodStorage -= 50;
-            MainHouse.Instance.mainRockStorage -= 30;
+            MainHouse.Instance.mainRockStorage -= 50;
+            MainHouse.Instance.mainWoodStorage -= 30;
             _carrySwordMaterials = true;
             SetTarget(_forge);
         }
@@ -49,6 +52,6 @@ public class NPC : Entity
     {
         hasGameObjectAsTarget = false;
         targetGameObject = null;
-        targetPos = Vector3.zero;
+        SetRandomTargetPos();
     }
 }

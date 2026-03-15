@@ -12,7 +12,8 @@ public class Harvester : Entity
     private void Start()
     {
         _moveSpeed = Instance.moveSpeed;
-        _idleRange = Instance.idleRange;
+        _maxIdleRange = Instance.idleRange;
+        _minIdleRange = -_maxIdleRange;
         _detectionRadius = Instance.detectionRadius;
 
         _onHarvestValue = harvesterType == Type.Wood ?

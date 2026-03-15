@@ -5,7 +5,8 @@ using Random = UnityEngine.Random;
 public class Entity : MonoBehaviour
 {                                                           
     protected float _moveSpeed;
-    protected Vector2 _idleRange;
+    protected Vector2 _maxIdleRange;
+    protected Vector2 _minIdleRange;
     protected float _detectionRadius;
     
     protected bool hasGameObjectAsTarget;
@@ -29,7 +30,7 @@ public class Entity : MonoBehaviour
             }
         }
         
-        MoveTowardsTarget();
+        MoveTowardsTargetPos();
         Flip();
     }
 
@@ -43,15 +44,15 @@ public class Entity : MonoBehaviour
         throw new NotImplementedException();
     }
     
-    protected void SetRandomTargetPos()
+    protected virtual void SetRandomTargetPos()
     {
-        var rndmX = Random.Range(-_idleRange.x, _idleRange.x);
-        var rndmY = Random.Range(-_idleRange.y, _idleRange.y);
+        var randomX = Random.Range(_minIdleRange.x, _maxIdleRange.x);
+        var randomY = Random.Range(_minIdleRange.y, _maxIdleRange.y);
 
-        targetPos = new Vector2(rndmX, rndmY);
+        targetPos = new Vector2(randomX, randomY);
     }
 
-    private void MoveTowardsTarget()
+    private void MoveTowardsTargetPos()
     {
         var direction =  (targetPos - transform.position).normalized;
         transform.position += direction * _moveSpeed;
