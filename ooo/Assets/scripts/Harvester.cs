@@ -7,7 +7,6 @@ public class Harvester : Entity
     
     [SerializeField] private bool inventoryFull;
     [SerializeField] private Recoltable.RecoltableType HarvesterType;
-
     private Recoltable selectedRecoltable;
 
     private void Update()
@@ -19,7 +18,7 @@ public class Harvester : Entity
 
         if (!inventoryFull)
         {
-                Walk(FoundNearest());
+            Walk(FoundNearest());
         }
 
         
@@ -68,6 +67,7 @@ public class Harvester : Entity
         }
 
         selectedRecoltable = nearestRecoltable;
+        //selectedRecoltable.isChosen = true;
         return nearestRecoltable.transform.position;
     }
 }
