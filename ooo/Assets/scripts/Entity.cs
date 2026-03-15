@@ -43,7 +43,7 @@ public class Entity : MonoBehaviour
         throw new NotImplementedException();
     }
     
-    private void SetRandomTargetPos()
+    protected void SetRandomTargetPos()
     {
         var rndmX = Random.Range(-_idleRange.x, _idleRange.x);
         var rndmY = Random.Range(-_idleRange.y, _idleRange.y);
