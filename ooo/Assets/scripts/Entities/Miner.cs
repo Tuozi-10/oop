@@ -4,8 +4,9 @@ namespace Entities
 {
     
     [SelectionBase]
-    public class Harvester : Entity, IResource
+    public class Miner : Entity, IResource
     {
+        
 
         protected override void SetTarget()
         {
@@ -16,6 +17,7 @@ namespace Entities
                 _ => target
             };
         }
+        
 
         private void Start()
         {
@@ -26,7 +28,7 @@ namespace Entities
         {
             if (!MoveTo()) 
                 return;
-            
+                
             if (_currentTarget == CurrentTarget.Base)
             {
                 _currentTarget = CurrentTarget.Harvest;
@@ -49,8 +51,8 @@ namespace Entities
         public void DropResource()
         {
             Harvested--;
-            GameManager.TotalWood++;
-            Debug.Log("total wood "+GameManager.TotalWood);
+            GameManager.TotalRock++;
+            Debug.Log("total rock" + GameManager.TotalRock);
         }
     }
 }

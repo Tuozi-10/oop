@@ -1,30 +1,104 @@
+using System;
+using UnityEditorInternal;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Entities
 {
     
     [SelectionBase]
-    public class Npc : Entity
+    public class Npc : Entity, IResource
     {
 
         [SerializeField] private float movementRangeX = 5f;
         [SerializeField] private float movementRangeY = 8f;
-        [HideInInspector] public Vector2 target;
+        public bool canForge;
 
-        public EntityType entityType;
-
-        public override void SetTarget()
+        protected override void SetTarget()
         {
-            target = new Vector2(Random.Range(-movementRangeX, movementRangeX),
-                Random.Range(-movementRangeY, movementRangeY));
+            if (!canForge)
+            {
+                target = new Vector2(Random.Range(-movementRangeX, movementRangeX),
+                    Random.Range(-movementRangeY, movementRangeY));
+                return;
+            }
+            target = _currentTarget switch
+            {
+                CurrentTarget.Harvest => GameManager.forge.transform.position,
+                CurrentTarget.Base => GameManager.startBase.transform.position,
+                _ => target
+            };
+            
         }
-    
-        public override void OnFixedUpdate()
+
+        private void Start()
         {
-            if (MoveTo(target))
+            _currentTarget = CurrentTarget.Base;
+        }
+
+        protected override void OnFixedUpdate()
+        {
+            if (!MoveTo()) 
+                return;
+
+            if (canForge && (GameManager.TotalWood < 5 || GameManager.TotalRock < 5))
+            {
+                if (_currentTarget == CurrentTarget.Base)
+                {
+                    canForge = false;
+                }
+            }
+            
+            if (!canForge)
             {
                 SetTarget();
             }
+            else
+            {
+                if (_currentTarget == CurrentTarget.Base)
+                {
+                    _currentTarget = CurrentTarget.Harvest; 
+                    DropResource(); 
+                }
+                else
+                {
+                    _currentTarget = CurrentTarget.Base; 
+                    AddResource();
+                }
+                SetTarget(); 
+            }
         }
+
+        private void OnEnable()
+        {
+            GameManager.TotalReached += CanForge;
+        }
+
+        private void OnDisable()
+        {
+            GameManager.TotalReached -= CanForge;
+        }
+
+        private void CanForge()
+        {
+            canForge = true;
+        }
+
+
+        public void AddResource()
+        {
+            Harvested++;
+            GameManager.TotalWood -= 5;
+            GameManager.TotalRock -= 5;
+        }
+
+        public void DropResource()
+        {
+            Harvested--;
+            GameManager.TotalSword++;
+            Debug.Log("total sword" + GameManager.TotalSword);
+        }
+        
+        
     }
 }

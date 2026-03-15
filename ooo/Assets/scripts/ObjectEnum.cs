@@ -3,7 +3,8 @@ using UnityEngine;
 public enum ObjectType
 {
     Wood = 1,
-    Rock = 2
+    Rock = 2,
+    Sword = 4
 }
 
 public enum EntityType

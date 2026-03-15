@@ -6,15 +6,33 @@ namespace Entities
     public abstract class Entity : MonoBehaviour
     {
 
-        public float speed = 0.01f;
-
-        protected bool MoveTo(Vector2 target)
+        public float speed = 0.1f;
+        [HideInInspector] public Vector2 target;
+        public EntityType entityType;
+        
+        private int _harvested;
+        protected int Harvested
+        {
+            get => _harvested;
+            set
+            {
+                if (value < 0)
+                {
+                    _harvested = 0;
+                    return;
+                }
+                _harvested = value;
+            }
+        }
+        protected CurrentTarget _currentTarget = CurrentTarget.Harvest;
+        
+        protected bool MoveTo()
         {
             Vector2 direction = target - (Vector2)transform.position;
             direction.Normalize();
             direction *= speed;
             transform.Translate(direction);
-            return Vector2.Distance(transform.position, target) <= 0.5f;
+            return Vector2.Distance(transform.position,target) <= 0.5f;
         }
 
         protected void MoveTo(float x, float y)
@@ -31,9 +49,15 @@ namespace Entities
             
         }
 
-        public abstract void OnFixedUpdate();
+        protected abstract void OnFixedUpdate();
 
-        public abstract void SetTarget();
+        protected abstract void SetTarget();
 
+    }
+
+    public interface IResource
+    {
+        public void AddResource();
+        public void DropResource();
     }
 }
