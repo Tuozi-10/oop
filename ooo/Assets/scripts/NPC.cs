@@ -1,5 +1,3 @@
-using System;
-using System.Data;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -12,8 +10,8 @@ public class NPC : Entity
         walkPos.y = Random.Range(-10, 10);
         return walkPos;
     }
-
-    private void FixedUpdate()
+    
+    protected virtual void FixedUpdate()
     {
         if (Distanced(target))
         {

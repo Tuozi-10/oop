@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class Entity : MonoBehaviour
+public abstract class Entity : MonoBehaviour
 {
     public Vector2 target = new Vector2();
     public float speed = 0.005f;

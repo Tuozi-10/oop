@@ -1,36 +1,63 @@
-using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class Recoltable : MonoBehaviour
 {
-    private static List<Recoltable> allRecoltable = new List<Recoltable>();
+    public static List<Recoltable> allActiveRecoltables = new List<Recoltable>();
 
-    [SerializeField] private Recoltabletype recoltabletype;
+    public Recoltabletype recoltabletype;
+    [SerializeField] private float respawnTime = 5f;
+    
+    private Renderer _renderer;
+
     public enum Recoltabletype
     {
         Rock = 1,
         Tree = 2
     }
 
-    public void Awake()
+    private void Awake()
     {
-        allRecoltable.Add(this);
+        _renderer = GetComponent<Renderer>();
+
+        allActiveRecoltables.Add(this);
     }
- 
-    public static Recoltable GetClosestRecoltable(Recoltabletype recoltableType, Vector2 harvesterPos)
+
+    public void Collect()
     {
-        var closestRecoltable = allRecoltable[0];
-        foreach (var Recoltable in allRecoltable)
+        StartCoroutine(RespawnRoutine());
+    }
+
+    private IEnumerator RespawnRoutine()
+    {
+        allActiveRecoltables.Remove(this);
+
+        _renderer.enabled = false;
+
+        yield return new WaitForSeconds(respawnTime);
+
+        _renderer.enabled = true;
+        allActiveRecoltables.Add(this);
+    }
+
+    public static Recoltable GetClosestRecoltable(Recoltabletype type, Vector2 pos)
+    {
+        Recoltable closest = null;
+        float minDist = Mathf.Infinity;
+
+        foreach (var res in allActiveRecoltables)
         {
-            if (Vector2.Distance(harvesterPos, Recoltable.transform.position) < Vector2.Distance(harvesterPos, closestRecoltable.transform.position))
+            if (res.recoltabletype == type)
             {
-                closestRecoltable = Recoltable;
+                float dist = Vector2.Distance(pos, res.transform.position);
+                if (dist < minDist)
+                {
+                    minDist = dist;
+                    closest = res;
+                }
             }
         }
-
-        return closestRecoltable; 
+        return closest;
     }
-
 }
