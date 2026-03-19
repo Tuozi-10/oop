@@ -1,45 +1,85 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Harvester : NPC
 {
     private GameManager gameManager;
-    private Vector3 posMaison;
     private bool transport = false;
     private bool mouvement = true;
     private Collider2D colliderMaison;
     private int ressourcePorter;
+    private List<Recoltable> arbreSurMap = new List<Recoltable>();
     IEnumerator Recolte(GameObject other)
     {
         Recoltable _recoltable = other.GetComponent<Recoltable>();
         yield return new WaitForSeconds(3);
-        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Harvester"), LayerMask.NameToLayer("Source"), true);
-        mouvement = true;
-        transport = true;
-        _recoltable.RessourceRecolte();
+        if (_recoltable != null)
+        {
+            Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Harvester"), LayerMask.NameToLayer("Source"), true);
+            mouvement = true;
+            transport = true;
+            _recoltable.RessourceRecolte();
+        }
     }
 
     IEnumerator Transport()
     {
         Debug.Log("je commence à charger les ressources");
         yield return new WaitForSeconds(3);
-        targetPos = RandomCoords();
+        posInit = transform.position;
+        arbreSurMap = FindObjectsByType<Recoltable>(FindObjectsSortMode.None).ToList();
+        GoToRessource(arbreSurMap);
         mouvement = true;
         transport = false;
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Harvester"), LayerMask.NameToLayer("Source"), false);
         GameManager.instance.IncrementRessource(ressourcePorter);
         Debug.Log("Fini de transporter ressources");
+        Debug.Log("prochaine destination" + targetPos);
     }
+    
+    
     void Start()
     {
-        GameObject maison = GameObject.FindGameObjectWithTag("Maison");
-        colliderMaison = maison.GetComponent<Collider2D>();
-        posMaison = maison.transform.position;
+        estNPC = false;
+        arbreSurMap = FindObjectsByType<Recoltable>(FindObjectsSortMode.None).ToList();
+        GoToRessource(arbreSurMap);
         posInit = transform.position;
-        targetPos = RandomCoords();
     }
 
+    private void GoToRessource(List<Recoltable> ressource)
+    {
+        if (ressource.Count == 0)
+        {
+            Debug.Log("La liste est complètement vide au départ !");
+            return;
+        }
+    
+        GameObject sourcePlusProche = null;
+        float distancePlusPetite = 10000000000000;
+        float distance;
+    
+        for (int i = 0; i < ressource.Count; i++)
+        {
+            if (ressource[i] == null)
+            {
+                continue;
+            }
+            distance = Vector3.Distance(transform.position, ressource[i].transform.position);
+            if (ressource[i].ressourceDispo == true && distance <= distancePlusPetite)
+            {
+                distancePlusPetite = distance;
+                sourcePlusProche = ressource[i].gameObject;
+            }
+        }
+        if (sourcePlusProche != null)
+        {
+            targetPos = sourcePlusProche.transform.position;
+        }
+    }
+    
     void FixedUpdate()
     {
         if (moveEnd == false)
@@ -79,7 +119,6 @@ public class Harvester : NPC
         {
             if (transport == true)
             {
-                colliderMaison.enabled = true;
                 posInit = transform.position;
                 targetPos = posMaison;
                 transform.Translate( new Vector3(targetPos.x - posInit.x,targetPos.y - posInit.y).normalized * speed);
@@ -87,7 +126,6 @@ public class Harvester : NPC
             else
             {
                 base.Move();
-                colliderMaison.enabled = false;
             }
         }
         

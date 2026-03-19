@@ -6,23 +6,27 @@ using UnityEngine;
 class Recoltable : MonoBehaviour
 {
     public Vector3 sourcePosition;
-    private Collider2D collider;
-    private
+    private Collider2D _collider;
+    public bool ressourceDispo = true;
 
     IEnumerator RechargeSource()
     {
         yield return new WaitForSeconds(10);
-        transform.position = sourcePosition;
+        _collider.enabled = true;
+        ressourceDispo = true;
+        //transform.position = sourcePosition;
     }
     private void Start()
     {
-        collider = GetComponent<Collider2D>();
+        _collider = GetComponent<Collider2D>();
         sourcePosition = transform.position;
     }
 
     public void RessourceRecolte()
     {
-        transform.position = new Vector3(100, 100, 100);
+        //transform.position = new Vector3(100, 100, 100);
+        _collider.enabled = false;
+        ressourceDispo = false;
         StartCoroutine(RechargeSource());
     }
 }

@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] Ressource ressourceData;
     public static GameManager instance;
+    [SerializeField] Ressource ressourceData;
     [SerializeField] TextMeshProUGUI ressourceTextBois;
     [SerializeField] TextMeshProUGUI ressourceTextPierre;
     [SerializeField] TextMeshProUGUI ressourceTextOutils;
@@ -39,23 +39,23 @@ public class GameManager : MonoBehaviour
         {
             bois+= 10;
             Debug.Log(bois);
-            ressourceTextBois.text = "Bois : " + bois.ToString();
         }
         else if (ressource == 2)
         {
             pierre+= 10;
             Debug.Log(pierre);
-            ressourceTextPierre.text = "Pierre : " + pierre.ToString();
         }
         else if (ressource == 3)
         {
             outils++;
             Debug.Log(outils);
-            ressourceTextOutils.text = "Outils : " + outils.ToString();
         }
         else
         {
             Debug.Log("svp ressource");
         }
+        ressourceTextBois.text = "Bois : " + bois.ToString();
+        ressourceTextPierre.text = "Pierre : " + pierre.ToString();
+        ressourceTextOutils.text = "Outils : " + outils.ToString();
     }
 }

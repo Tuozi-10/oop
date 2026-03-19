@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Ressource
   m_EditorClassIdentifier: 
   bois: 0
-  pierre: 0
+  pierre: 100
   outils: 0
