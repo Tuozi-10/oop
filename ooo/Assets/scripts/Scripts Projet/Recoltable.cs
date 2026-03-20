@@ -11,7 +11,7 @@ class Recoltable : MonoBehaviour
 
     IEnumerator RechargeSource()
     {
-        yield return new WaitForSeconds(10);
+        yield return new WaitForSeconds(60);
         _collider.enabled = true;
         ressourceDispo = true;
         //transform.position = sourcePosition;

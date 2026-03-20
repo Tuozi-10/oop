@@ -16,16 +16,31 @@ public class NPC : Entity1
     IEnumerator WorkTime()
     {
         yield return new WaitForSeconds(3f);
-        GameManager.instance.outils++;
         posInit = transform.position;
         targetPos = posMaison;
         mouvement = true;
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("NPC"), LayerMask.NameToLayer("Forge"), true);
         Debug.Log(targetPos);
     }
+
+    IEnumerator outilsInMaison()
+    {
+        mouvement = false;
+        yield return new WaitForSeconds(3f);
+        GameManager.instance.outils++;
+        GameManager.instance.bois -= 10;
+        GameManager.instance.pierre -= 10;
+        GameManager.instance.ressourceTextBois.text = "Bois : " + GameManager.instance.bois.ToString();
+        GameManager.instance.ressourceTextPierre.text = "Pierre : " + GameManager.instance.pierre.ToString();
+        GameManager.instance.ressourceTextOutils.text = "Outils : " + GameManager.instance.outils.ToString();
+        posInit = transform.position;
+        mouvement = true;
+        onWork = false;
+    }
     
     private void Start()
     {
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("NPC"), LayerMask.NameToLayer("Source"), true);
         posInit = transform.position;
         targetPos = RandomCoords();
         Forge = GameObject.FindGameObjectWithTag("Forge");
@@ -36,14 +51,21 @@ public class NPC : Entity1
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.tag == "Forge" && onWork == true)
+        if (other.gameObject.CompareTag("Forge"))
         {
-            mouvement = false;
-            StartCoroutine(WorkTime());
+            if (onWork)
+            {
+                mouvement = false;
+                StartCoroutine(WorkTime());
+            }
+            else
+            {
+                targetPos = RandomCoords();
+            }
         }
-        else if (other.gameObject.tag == "Forge" && onWork == false)
+        else if (other.gameObject.CompareTag("Maison"))
         {
-            targetPos = RandomCoords();
+            StartCoroutine(outilsInMaison());
         }
     }
 

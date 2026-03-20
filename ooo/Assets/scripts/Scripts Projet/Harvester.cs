@@ -11,7 +11,7 @@ public class Harvester : NPC
     private bool mouvement = true;
     private Collider2D colliderMaison;
     private int ressourcePorter;
-    private List<Recoltable> arbreSurMap = new List<Recoltable>();
+    private List<Recoltable> ressources = new List<Recoltable>();
     IEnumerator Recolte(GameObject other)
     {
         Recoltable _recoltable = other.GetComponent<Recoltable>();
@@ -30,8 +30,8 @@ public class Harvester : NPC
         Debug.Log("je commence à charger les ressources");
         yield return new WaitForSeconds(3);
         posInit = transform.position;
-        arbreSurMap = FindObjectsByType<Recoltable>(FindObjectsSortMode.None).ToList();
-        GoToRessource(arbreSurMap);
+        ressources = FindObjectsByType<Recoltable>(FindObjectsSortMode.None).ToList();
+        GoToRessource(ressources);
         mouvement = true;
         transport = false;
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Harvester"), LayerMask.NameToLayer("Source"), false);
@@ -44,8 +44,8 @@ public class Harvester : NPC
     void Start()
     {
         estNPC = false;
-        arbreSurMap = FindObjectsByType<Recoltable>(FindObjectsSortMode.None).ToList();
-        GoToRessource(arbreSurMap);
+        ressources = FindObjectsByType<Recoltable>(FindObjectsSortMode.None).ToList();
+        GoToRessource(ressources);
         posInit = transform.position;
     }
 

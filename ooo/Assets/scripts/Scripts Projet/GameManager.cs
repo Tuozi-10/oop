@@ -5,9 +5,9 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     [SerializeField] Ressource ressourceData;
-    [SerializeField] TextMeshProUGUI ressourceTextBois;
-    [SerializeField] TextMeshProUGUI ressourceTextPierre;
-    [SerializeField] TextMeshProUGUI ressourceTextOutils;
+    [SerializeField] public TextMeshProUGUI ressourceTextBois;
+    [SerializeField] public TextMeshProUGUI ressourceTextPierre;
+    [SerializeField] public TextMeshProUGUI ressourceTextOutils;
     public int bois;
     public int pierre;
     public int outils;
