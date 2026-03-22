@@ -26,7 +26,7 @@ public class Recoltable : MonoBehaviour
     }
     public IEnumerator Disable()
     {
-        
+        // pas oufito les appels régulires à des get component, essaies de les garder en cache le plus possible
         gameObject.GetComponent<SpriteRenderer>().color = new Color(1,1,1, 0.5f);
         isEnabled = false;
         yield return new WaitForSeconds(5.0f);

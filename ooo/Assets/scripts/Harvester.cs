@@ -47,6 +47,7 @@ public class Harvester : Entity
 
     }
 
+    // pareil niveau naming j'l'aurais surement appellé plus "GetNearestRecoltable" 
     private Vector3 FoundNearest()
     {
         Recoltable nearestRecoltable = null;
