@@ -15,9 +15,13 @@ public class Harvester : NPC
     IEnumerator Recolte(GameObject other)
     {
         Recoltable _recoltable = other.GetComponent<Recoltable>();
+        
+        // pareil variable en dur
         yield return new WaitForSeconds(3);
         if (_recoltable != null)
         {
+            // si tu veux pas t'embeter à le faire en code tu pourrais faire ca directement dans les project settings,
+            // et ca évite de pas comprendre si un jour tu les réactives pourquoi quand tu lances le jeu ca les redésactive
             Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Harvester"), LayerMask.NameToLayer("Source"), true);
             mouvement = true;
             transport = true;
@@ -34,6 +38,7 @@ public class Harvester : NPC
         GoToRessource(ressources);
         mouvement = true;
         transport = false;
+        // HA je viens de comprendre pourquoi tu fais ca, ca risque pas de peter les collisions de tes autres entités ? 
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Harvester"), LayerMask.NameToLayer("Source"), false);
         GameManager.instance.IncrementRessource(ressourcePorter);
         Debug.Log("Fini de transporter ressources");
@@ -44,11 +49,15 @@ public class Harvester : NPC
     void Start()
     {
         estNPC = false;
+        // gaffe au ToList, ca utilise du LinQ, encore un peu couteux sur notre version de C# utilisé par unity
         ressources = FindObjectsByType<Recoltable>(FindObjectsSortMode.None).ToList();
         GoToRessource(ressources);
         posInit = transform.position;
     }
 
+    // le naming est pas bon du tout, j'pensais que ca déplacait l'entité, alors que c'est un gros getter de la ressource la plus proche
+    // il te manque d'ailleurs la séparation arbre / pierre, là ca prend la plus proche
+    // et c'est tout ( mais en relisant ce que je t'avais dit par MP, c'était pas précisé, donc my bad ca sera pas compté)
     private void GoToRessource(List<Recoltable> ressource)
     {
         if (ressource.Count == 0)
@@ -58,6 +67,7 @@ public class Harvester : NPC
         }
     
         GameObject sourcePlusProche = null;
+        // float.Min/maxvalue ?
         float distancePlusPetite = 10000000000000;
         float distance;
     

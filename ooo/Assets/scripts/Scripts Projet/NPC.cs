@@ -23,6 +23,9 @@ public class NPC : Entity1
         Debug.Log(targetPos);
     }
 
+    // pas giga claire le nom de ta fonction
+    // niveau responsabilité, ton NPC fait des choses inadaptées, il devrait appeller la maison,
+    // et lui dire "incrementeOutil" et elle elle retirerait et updaterait l'UI par exemple
     IEnumerator outilsInMaison()
     {
         mouvement = false;
@@ -30,6 +33,7 @@ public class NPC : Entity1
         GameManager.instance.outils++;
         GameManager.instance.bois -= 10;
         GameManager.instance.pierre -= 10;
+        // ca par exemple, c'est pas terrible non plus niveau responsabilité, tu tapes dans une UI que tu references pas, de maniere un peu sauvage, c'pas incroyable
         GameManager.instance.ressourceTextBois.text = "Bois : " + GameManager.instance.bois.ToString();
         GameManager.instance.ressourceTextPierre.text = "Pierre : " + GameManager.instance.pierre.ToString();
         GameManager.instance.ressourceTextOutils.text = "Outils : " + GameManager.instance.outils.ToString();

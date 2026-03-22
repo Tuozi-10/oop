@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    // j'te conseille de prendre le reflexe de dev et nommer en anglais, plus vite tu prends le pli moins ca sera dur à la sortie de l'école
     public static GameManager instance;
     [SerializeField] Ressource ressourceData;
     [SerializeField] public TextMeshProUGUI ressourceTextBois;
@@ -33,10 +34,12 @@ public class GameManager : MonoBehaviour
         outils = ressourceData.outils;
     }
 
+    // pense à clean tes debug log quand tu as fini de debug, ca t'évite de perdre des perfs ( ils sont assez couteux si spammés )
     public void IncrementRessource(int ressource)
     {
         if (ressource == 1)
         {
+            // pas hyper évolutif la variable en dur, hésite pas à utiliser des serialize, des scriptables, ou à minima des constantes
             bois+= 10;
             Debug.Log(bois);
         }
