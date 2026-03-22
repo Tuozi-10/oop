@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
+// hésite pas à la mettre en abstract et à l'appelle abs_Entity, sinon tu peux l'instancier directement au lieu de forcer l'utilisation de NPC et Harvester
 public class Entity : MonoBehaviour
 {                                                           
     protected float _moveSpeed;
@@ -39,6 +40,8 @@ public class Entity : MonoBehaviour
         _lastFramePos = transform.position;
     }
 
+    // là du coup pour forcer l'implé t'as mis un throw, si t'avais mis ta classe en abstract tu aurais aps eu besoin,
+    // t'aurais eu une erreur de compil dans les héritages tant que pas hérité
     protected virtual void Interact(GameObject gameObject)
     {
         throw new NotImplementedException();

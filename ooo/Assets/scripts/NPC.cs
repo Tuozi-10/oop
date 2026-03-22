@@ -18,6 +18,7 @@ public class NPC : Entity
 
     private void Update()
     {
+        // dommage le petit 50/30 en dur
         if (MainHouse.Instance.mainRockStorage <= 50
             || MainHouse.Instance.mainWoodStorage <= 30
             || _carrySwordMaterials) return;

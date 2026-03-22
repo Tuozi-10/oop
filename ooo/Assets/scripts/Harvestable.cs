@@ -7,6 +7,7 @@ public class Harvestable : MonoBehaviour
 {
     [SerializeField] private HarvestManager.Type harvestableType;
     private SpriteRenderer spriteRenderer;
+    // inutilisé ?
     private int onHarvestValue;
     public bool activated = true;
 
@@ -33,6 +34,7 @@ public class Harvestable : MonoBehaviour
         activated = false;
         spriteRenderer.color = Color.grey;
         
+        // c'est cool ca 👍
         yield return new WaitForSeconds(HarvestManager.Instance.cooldownTime);
         ReActivate();
     }

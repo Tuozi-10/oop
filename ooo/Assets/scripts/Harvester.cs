@@ -26,6 +26,8 @@ public class Harvester : Entity
     {
         if (otherGameObject.CompareTag("Harvestable"))
         {
+            // ca pourrait être pas mal de passer plutot qu'un gameobject un Harvestable,
+            // comme ca t'éviterais le getcomponent et la potentielle nullref
             var targetHarv = otherGameObject.GetComponent<Harvestable>();
             if (!targetHarv.activated)
             {
@@ -52,6 +54,7 @@ public class Harvester : Entity
         }
     }
 
+    // tu pourrais utiliser un enum TargetType pour éviter le case 0 / 1 / 2 assez délicats à comprendre ce qu'ils sont hors contexte
     private void SetTarget(int target)
     {
         switch (target)
@@ -76,6 +79,7 @@ public class Harvester : Entity
         for (int i = 0; i < 20; i++)
         {
             var harvObj = harvList[Random.Range(0, harvList.Count - 1)];
+            // pareil ici, ta liste pourrait n'etre que de harvestable, pour éviter les getcompo
             if (!harvObj.GetComponent<Harvestable>().activated) continue;
             return harvObj;
         }
