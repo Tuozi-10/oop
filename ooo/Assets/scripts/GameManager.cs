@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
         SpawnHarvesters();
     }
  
+    // c'est bien ca, mieux que copier coller x fois le prefab
+    // juste dommage t'as pas fait passer le type de ressource à récolter pour que ca soit 100% fonctionnel
     private void SpawnHarvesters()
     {
         if (harvesterPrefab == null)

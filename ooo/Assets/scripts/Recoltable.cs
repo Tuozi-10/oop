@@ -29,6 +29,7 @@ public class Recoltable : MonoBehaviour
         StartCoroutine(RespawnRoutine());
     }
 
+    // la logique est bonne avec la liste qui s'met à jour, c'est bien
     private IEnumerator RespawnRoutine()
     {
         allActiveRecoltables.Remove(this);

@@ -7,6 +7,7 @@ public abstract class Entity : MonoBehaviour
     public Vector2 target = new Vector2();
     public float speed = 0.005f;
 
+    // inutilisé
     public enum Ressources
     {
         Wood,
