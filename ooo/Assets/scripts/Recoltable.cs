@@ -7,6 +7,7 @@ public class Recoltable : MonoBehaviour
 {
     public static List<Recoltable> listRecoltables = new List<Recoltable>();
     
+    // pas giga explicite Type et myType, hésite aps à le rendre un poil plus explicite ( harvestableType par exemple )
     public enum Type
     {
         Wood,
@@ -54,6 +55,14 @@ public class Recoltable : MonoBehaviour
         return recoltableToHarvest;
     }
 
+    // j'trouve ca conceptuellement weird d'avoir le recoltable qui check si le récolteur peut le choper, j'aurais plus vu
+    // dans le récolteur la logique de "est ce que je suis dans la zone de ce que je veux récolter"
+    // et en bonus, tu pourrais avoir un récolteur d'un autre type qui passe proche de ta ressource,
+    // et paf elle décide de lui sauter dans les mains parce que passé trop proche d'un arbre alors qu'il voulait un caillou
+    // OU PIRE, il pourrait avoir déjà une ressource, et ca ca le faire récolter en double
+    // OU PIIIIIRE, il chope un caillou, il passe proche d'un arbre, l'arbre est du coup récolté,
+    // mais quand le mineur va passer à ta maison, y'aura bien le caillou mais pas l'arbre de livré
+    // OU PIRRRRREEE, ouais nan rien d'autre de pire, c'est déjà caca
     public void CollisionHarvester()
     {
         foreach (var harvester in Harvester.listHarvester)

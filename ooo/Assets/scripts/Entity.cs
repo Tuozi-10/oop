@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 
+// l'héritage est bien utilisé, meme si le walkto et ton fixed update j'ai clairement déja vu ces lignes dans un autre rendu 👀
 public abstract class Entity : MonoBehaviour
 {
     public Vector2 target = new Vector2();

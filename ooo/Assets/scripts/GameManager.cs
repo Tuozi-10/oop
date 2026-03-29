@@ -40,7 +40,10 @@ public class GameManager : MonoBehaviour
         stoneText.text = "Pierre : " + stone;
         swordText.text = "Epee : " + sword;
     }
-
+    
+    // wa tu fais à chaque frame un check de chaque entité avec leur ressource et avec la forge ?
+    // honnetement tu t'giga complexifies la vie, tu pourrais faire ca dans l'update de chaque harvester / NPC directement,
+    // là on s'demande pourquoi tu fais ca dans ce script, j'aurais jamais été chercher ici
     public void CollisionDetector()
     {
         foreach (var harvester in Harvester.listHarvester)

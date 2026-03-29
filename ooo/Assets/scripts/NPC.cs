@@ -36,6 +36,8 @@ public class NPC : Entity
         return posToWalk;
     }
 
+    // pas giga giga fan du retrait instant de tes ressources quand il peut aller forger, et des valeurs en dur,
+    // et en bonus dans l'update, mais ca reste fonctionnel
     private void Update()
     {
         if (GameManager.instance.wood >= 5 && GameManager.instance.stone >= 3)
