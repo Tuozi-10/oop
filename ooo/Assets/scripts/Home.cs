@@ -30,6 +30,8 @@ public class Home : MonoBehaviour
         ReloadText();
     }
 
+    
+    // les responsabilités sont bonnes, l'update de l'ui est aux bons endroits, c'est vraiment tres bien
     public void PoseWood(int ressources)
     {
         wood += ressources;

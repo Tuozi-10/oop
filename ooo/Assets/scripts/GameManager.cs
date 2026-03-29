@@ -23,6 +23,10 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         if (instance == null) { instance = this; }
+        // un petit truc à faire gaffe, là ton code apres le destroy va etre appellé,
+        // ce qui est pas hyper explicite, si tu le détruis il vaudrait mieux faire un return et que ton GameManager réel fasse tes init dans ton cas de double instance
+        // là si tu as deux gameManager dans ta scene, par erreur, les deux vont instancier tes entités, mais tu comprendras pas pourquoi car le deuxieme aura été supprimé
+        // d'ailleurs je pense que c'est pas this, mais gameObject que tu veux supprimer, sinon il va squatter dans ta scene sans component
         else { Destroy(this); }
         
         InitialiseRessources();
