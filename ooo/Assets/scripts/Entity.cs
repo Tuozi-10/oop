@@ -9,6 +9,7 @@ public abstract class Entity : MonoBehaviour
 
         public entityData typeEntity;
         
+        // pas incroyable le nom test chef
         [SerializeField] protected TextMeshProUGUI test;
         
         public void MovetoTargetPosition()

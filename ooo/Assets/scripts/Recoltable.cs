@@ -19,6 +19,7 @@ public class Recoltable : MonoBehaviour
     {
         if(recolt == Recolt.arbre)
         {
+            // attention aux valeurs en dur
             boisInitial = 500;
         }
         if(recolt == Recolt.pierre)

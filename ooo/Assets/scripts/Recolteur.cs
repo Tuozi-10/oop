@@ -16,6 +16,8 @@ public class Recolteur : Entity
     
     public bool inventoryfull;
     
+    
+    // pas incroyable niveau logique, tes récolteurs ont une variable qui désigne le stock de la maison??
     public static int nbWoodHome = 0;
     public static int nbRockHome = 0;
 
@@ -35,6 +37,7 @@ public class Recolteur : Entity
 
     }
 
+    // comme dans l'autre update, c'est le dawa ici
     void Update()
     {
         setTarget();
@@ -73,6 +76,7 @@ public class Recolteur : Entity
 
 
 
+    // attention à tes nommades, des fois t'as des majuscules, des fois non, t'as des espacements bizarres un peu partout, y'a du clean  à faire
     public Vector3 researchtarget()
     {
 
