@@ -31,6 +31,8 @@ namespace Entities
             
         }
 
+        // c'est bien les deux abstract, c'est une bonne approche
+        
         public abstract void OnFixedUpdate();
 
         public abstract void SetTarget();

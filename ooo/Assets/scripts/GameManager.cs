@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
         startBase = startBaseSerialize;
     }
 
+    
+    // ces deux méthodes ne sont pas tant de la responsabilité du gameManager
     private static ObjectType GetObjectByEntity(EntityType entityType)
     {
         return entityType switch

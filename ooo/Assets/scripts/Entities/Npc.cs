@@ -3,6 +3,8 @@ using UnityEngine;
 namespace Entities
 {
     
+    // un peu triste de pas avoir le forgeron et l'ui :/
+    
     [SelectionBase]
     public class Npc : Entity
     {
