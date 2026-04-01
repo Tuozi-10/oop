@@ -8,6 +8,7 @@ namespace Entities
 
         public float speed = 0.1f;
         [HideInInspector] public Vector2 target;
+        // ha mais en plus tu l'as le entityType, c'est dommage, t'avais tout pour pas créer deux classes
         public EntityType entityType;
         
         private int _harvested;

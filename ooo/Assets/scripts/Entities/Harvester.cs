@@ -22,6 +22,11 @@ namespace Entities
             SetTarget();
         }
     
+        // pas turbo fan d'utiliser une fonction "générique", meme si c'est la tienne, on comprend pas trop
+        // qu'elle est supposée faire le défilement jusqu'à atteindre, puis faire une action
+        // dans ton cas, j'aurais surement appellé un MoveTo, puis un CheckTargetReached, là on comprends pas pourquoi MoveTo
+        // si il retourne false on return, alors que c'est parce qu'il a atteint sa target
+        // ca à part, c'est tres bien
         protected override void OnFixedUpdate()
         {
             if (!MoveTo()) 

@@ -24,6 +24,8 @@ namespace Entities
             SetTarget();
         }
     
+        // tu as du code duppliqué ici, c'est dommage ton Harvester fait littéralement la meme chose à l'exception du petit total rock en bas
+        // tu aurais pu n'avoir qu'une seule classe et un "harvestableType"
         protected override void OnFixedUpdate()
         {
             if (!MoveTo()) 

@@ -41,6 +41,7 @@ namespace Entities
             if (!MoveTo()) 
                 return;
 
+            // attention au petit 5 en dur
             if (canForge && (GameManager.TotalWood < 5 || GameManager.TotalRock < 5))
             {
                 if (_currentTarget == CurrentTarget.Base)
@@ -92,6 +93,8 @@ namespace Entities
             GameManager.TotalRock -= 5;
         }
 
+        // alors c'est assez bizarre, ca a pas l'air déconnant parcontre ca le fait
+        // avant que tu atteignes la base pour déposer, ca le fait dès que ton entité décide d'aller vers la forge 🤔
         public void DropResource()
         {
             Harvested--;

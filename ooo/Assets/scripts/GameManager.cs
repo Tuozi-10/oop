@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
         set
         {
             _totalWood = value;
+            // c'est bien les updates d'UI dans les properties/set 👍 bon reflexe
             UiManager.Instance.ActualiseUi(ObjectType.Wood, _totalWood);
             CheckTotals();
         }
